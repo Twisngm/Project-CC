@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     Collider2D collision;
-    public float dmg;
 
     public Player player;
 
@@ -25,16 +24,8 @@ public class EnemyBullet : MonoBehaviour
         }
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("피격 : " + dmg);
-            if (collision.GetComponentInParent<Player>().shield > 0)
-            {
-                collision.GetComponentInParent<Player>().shield -= dmg;
-            }
-            else
-                collision.GetComponentInParent<Player>().nowHP -= dmg;
 
             Destroy(gameObject);
         }
     }
 }
-/* 마크 */

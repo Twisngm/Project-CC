@@ -6,16 +6,23 @@ public class AttackManager : MonoBehaviour
 {
     public Player player;
     public Enemy enemy;
+    public RangeEnemy Renemy;
+    public GameObject RangeEnemy;
 
     public float Damage;
     // Start is called before the first frame update
     void Start()
     {
-        if(tag.Equals("Normal_Attack") || tag.Equals("Skill_Attack"))
-           player = GetComponentInParent<Player>();
-        else if(tag.Equals("Enemy_Normal_Attack"))
+        if (tag.Equals("Normal_Attack") || tag.Equals("Skill_Attack"))
+            player = GetComponentInParent<Player>();
+        else if (tag.Equals("Enemy_Normal_Attack"))
         {
             enemy = GetComponentInParent<Enemy>();
+        }
+        else if (tag.Equals("Range_Enemy_Attack"))
+        {
+            RangeEnemy = GameObject.FindWithTag("RangeEnemy");
+            Renemy = RangeEnemy.GetComponent<RangeEnemy>();
         }
        
     }
@@ -78,15 +85,15 @@ public class AttackManager : MonoBehaviour
             collision.GetComponentInParent<Player>().nowHP -= enemy.atkDmg;
           
         }
-        if (collision.gameObject.layer == 15 && tag.Equals("Enemy_Range_Attack"))
+        if (collision.gameObject.layer == 15 && tag.Equals("Range_Enemy_Attack"))
         {
-            Debug.Log("피격 : " + enemy.atkDmg);
+            Debug.Log("피격 : " + Renemy.atkDmg);
             if (collision.GetComponentInParent<Player>().shield > 0)
             {
-                collision.GetComponentInParent<Player>().shield -= enemy.atkDmg;
+                collision.GetComponentInParent<Player>().shield -= Renemy.atkDmg;
             }
             else
-                collision.GetComponentInParent<Player>().nowHP -= enemy.atkDmg;
+                collision.GetComponentInParent<Player>().nowHP -= Renemy.atkDmg;
         }
     }
 }
