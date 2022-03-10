@@ -17,6 +17,10 @@ public class EnemyAI : MonoBehaviour
     ConditionManager CM;
 
     public float distance;
+    Quaternion eyedirection;
+    Quaternion left = Quaternion.Euler(0, 180, 0);
+    Quaternion right = Quaternion.Euler(0, 0, 0);
+
 
     void Start()
     {
@@ -131,11 +135,24 @@ public class EnemyAI : MonoBehaviour
 
         if (target.transform.position.x - transform.position.x < 0) // 타겟이 왼쪽에 있을 때
         {
-            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+            if (eyedirection != left)
+            {
+                // 멈추는 함수 구현할것
+                eyedirection = left;
+            }
+            
+            //gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         else // 타겟이 오른쪽에 있을 때
         {
-            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            if (eyedirection != right)
+            {
+                // 멈추는 함수 구현할것
+                eyedirection = right;
+            }
+
+            //gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
+        gameObject.transform.rotation = eyedirection;
     }
 }
